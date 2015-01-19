@@ -61,11 +61,11 @@ module.exports = globalContext;
 * @param {origin: string} The url of the place where the event is originating.
 */
 function socketEventMessage(name, data, origin) {
+	var ports           = null;
+	var source          = null;
 	var bubbles         = false;
 	var cancelable      = false;
 	var lastEventId     = '';
-	var source          = null;
-	var ports           = null;
 	var targetPlacehold = null;
 
 	try {
@@ -129,6 +129,12 @@ module.exports = socketEventMessage;
 * @param {url: string} The url to transform.
 */
 function urlTransform(url) {
+
+  /* Ignore url query string */
+  if (url.indexOf('?') !== -1) {
+    url = url.split('?')[0];
+  }
+
   var a = document.createElement('a');
   a.href = url;
 
